@@ -44,7 +44,7 @@ class History: NSManagedObject
     static  func getHistoryDataWithPredicateText(text:String)-> Array<History>?
     {
         let fetchRequest:NSFetchRequest<History> = History.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "text contains %@",text )
+        fetchRequest.predicate = NSPredicate(format: "text  CONTAINS[c] %@",text )
         fetchRequest.sortDescriptors =  [NSSortDescriptor(key: "date", ascending: false)]
         fetchRequest.fetchLimit = 10
         // CoreDataManager.sharedManager.persistentContainer.performBackgroundTask { (backContext) in

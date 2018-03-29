@@ -41,3 +41,9 @@ struct FlikrModelKeys
     static let title  = "title"
     static let secret = "secret"
 }
+
+struct InterSapce
+{
+    static let landscapeSpacing:Double = ((15.0 * 3.0)-20.0) / 2.0 // ((remaingSpace * number of cells ) - inscts) / number of gaps in columns
+    static let portraitSpacing:Double = (15.0 * 2.0) - 20.0
+}

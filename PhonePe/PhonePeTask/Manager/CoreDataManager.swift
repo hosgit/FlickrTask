@@ -26,6 +26,8 @@ final class CoreDataManager {
         let managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
         
         managedObjectContext.parent = self.privateManagedObjectContext
+        managedObjectContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+
         
         return managedObjectContext
     }()
@@ -35,8 +37,9 @@ final class CoreDataManager {
         var managedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         
         // Configure Managed Object Context
-        managedObjectContext.persistentStoreCoordinator = self.persistentStoreCoordinator
         managedObjectContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        managedObjectContext.persistentStoreCoordinator = self.persistentStoreCoordinator
+        
         return managedObjectContext
     }()
     
@@ -91,7 +94,6 @@ final class CoreDataManager {
             }
         }
     }
-    
     
     private func saveChangesAtParent()
     {

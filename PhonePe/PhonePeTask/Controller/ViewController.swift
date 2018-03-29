@@ -8,6 +8,8 @@
 
 import UIKit
 
+
+
 class ViewController: UIViewController
 {
     var flickrs = [Flickr]()
@@ -15,6 +17,7 @@ class ViewController: UIViewController
     var isLoading:Bool = false
     var currentPage = 1
     var latestQuery = ""
+   
     let footerViewReuseIdentifier = "RefreshFooterView"
     @IBOutlet weak var indicator: UIActivityIndicatorView!
     @IBOutlet weak var noResultsLabel: UILabel!
@@ -48,6 +51,18 @@ class ViewController: UIViewController
             }
         }
     }
+    
+    private func getInterSpacing() -> Double
+    {
+        
+        if UIDevice.current.orientation.isLandscape
+        {
+            return InterSapce.landscapeSpacing
+        } else
+        {
+            return InterSapce.portraitSpacing
+        }
+    }
 
     @IBOutlet weak var imagesCollectionView: UICollectionView!
     {
@@ -65,7 +80,6 @@ class ViewController: UIViewController
             searchTextField.delegate = self
             addButtonOntextField()
             searchTextField.addTarget(self, action: #selector(textFieldDidChange(textField:)), for: .editingChanged)
-
         }
     }
     
@@ -73,7 +87,6 @@ class ViewController: UIViewController
     {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.rotated), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
-
         self.imagesCollectionView.register(UINib(nibName: "CustomFooterView", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: footerViewReuseIdentifier)
     }
     
@@ -245,8 +258,10 @@ extension ViewController:UICollectionViewDelegate,UICollectionViewDelegateFlowLa
         return CGSize.zero
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        if isLoading {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize
+    {
+        if isLoading
+        {
             return CGSize.zero
         }
         return CGSize(width: collectionView.bounds.size.width, height: 55)
@@ -265,7 +280,7 @@ extension ViewController:UICollectionViewDelegate,UICollectionViewDelegateFlowLa
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat
     {
-        return 5
+        return CGFloat(getInterSpacing())
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat
     {
