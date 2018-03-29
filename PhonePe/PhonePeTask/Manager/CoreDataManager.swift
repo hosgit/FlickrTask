@@ -36,7 +36,7 @@ final class CoreDataManager {
         
         // Configure Managed Object Context
         managedObjectContext.persistentStoreCoordinator = self.persistentStoreCoordinator
-        
+        managedObjectContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         return managedObjectContext
     }()
     
